@@ -113,4 +113,10 @@ public class EmployeeController {
 	public EmployeeAndDepartmentData getEmpAndDep3() {
 		return employeeService.getEmployeeAndDepData();
 	}
+	
+	@GetMapping
+	public String hello()
+	{
+		return "hello";
+	}
 }
