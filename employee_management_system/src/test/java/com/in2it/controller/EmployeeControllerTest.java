@@ -29,9 +29,9 @@ public class EmployeeControllerTest {
 	EmployeeService employeeService;
 
 	//@Before
-	public void init() {
-		MockitoAnnotations.openMocks(this);
-	}
+// 	public void init() {
+// 		MockitoAnnotations.openMocks(this);
+// 	}
 
 	@Test
 	void mockTestByList() {
