@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
+//import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,7 +28,7 @@ public class EmployeeControllerTest {
 	@Mock
 	EmployeeService employeeService;
 
-	@Before
+	//@Before
 	public void init() {
 		MockitoAnnotations.openMocks(this);
 	}

@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Before;
+//import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -36,7 +36,7 @@ class EmployeeServiceTest {
 	private Employee employee;
 	EmployeeDTO employeeDto;
 
-	@Before
+	//@Before
 	public void init() {
 		MockitoAnnotations.openMocks(this);
 	}
