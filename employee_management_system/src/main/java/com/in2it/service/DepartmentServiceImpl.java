@@ -12,4 +12,10 @@ public interface DepartmentServiceImpl {
 	
 	public List<Department> getAllDep();
 
+	void saveDepAndEmp(DepartmentDTO departmentDTO);
+
+	public Department getEmpByDepId(int did);
+
+ 
+
 }

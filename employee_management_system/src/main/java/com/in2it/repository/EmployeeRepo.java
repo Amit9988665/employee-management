@@ -26,4 +26,14 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
 	
 	@Query("select e from Employee e  where e.empSalary>2000")
 	public List<Employee> getAllEmpBySalaryGreaterThen();
+
+	/*
+	 * @Query(value = " SELECT\r\n" + "  employee.* ,\r\n" + "  department.*\r\n" +
+	 * "FROM employee\r\n" + "JOIN department\r\n" +
+	 * "  ON employee.eid  =department.did\r\n" + "JOIN employee_departments\r\n" +
+	 * "  ON employee_departments.empolyees_eid  =department.did where employee_departments.empolyees_eid =1"
+	 * , nativeQuery = true)
+	 */
+	@Query("Select e from Employee e where e.eid=?1")
+	public Employee getDepByEmpId(int eid);
 }

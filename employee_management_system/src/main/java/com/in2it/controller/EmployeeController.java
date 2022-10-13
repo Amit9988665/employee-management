@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.in2it.custumexception.UserCustumException;
+import com.in2it.model.Department;
 import com.in2it.model.Employee;
 import com.in2it.service.EmployeeServiceI;
 import com.in2it.wrapperobject.EmployeeAndDepartmentData;
@@ -25,7 +27,7 @@ import com.in2it.wrapperobject.EmployeeAndDepartmentImpl;
 import com.in2it.wrapperobject.EmployeeDTO;
 
 @RestController
-
+@RequestMapping("/emp")
 public class EmployeeController {
 
 	org.slf4j.Logger logger = LoggerFactory.getLogger(EmployeeController.class);
@@ -36,8 +38,7 @@ public class EmployeeController {
 	@GetMapping("/log")
 	public String logString() {
 		logger.trace("Log Level : trace");
-		 
-		
+
 		logger.info("Log level: INFO");
 		logger.debug("Log level: DEBUG");
 		logger.error("Log level: ERROR");
@@ -47,11 +48,11 @@ public class EmployeeController {
 
 	@PostMapping("/save")
 	public ResponseEntity<String> createEmployee(@Valid @RequestBody EmployeeDTO employee) {
-		
+
 		employeeService.saveEmp(employee);
 
 		return new ResponseEntity<>("save succussesfully", HttpStatus.CREATED);
-		 
+
 	}
 
 	@GetMapping("/getemp")
@@ -113,10 +114,25 @@ public class EmployeeController {
 	public EmployeeAndDepartmentData getEmpAndDep3() {
 		return employeeService.getEmployeeAndDepData();
 	}
-	
-	@GetMapping
-	public String hello()
-	{
-		return "hello";
+
+	@PostMapping("/saveempanddep")
+	public ResponseEntity<String> saveEmpAndDep(@RequestBody EmployeeDTO dto) {
+		employeeService.saveEmpAndDep(dto);
+		return ResponseEntity.ok("Successfully save");
+
 	}
+	
+	@GetMapping("/getdepbyempid/{eid}")
+	public ResponseEntity<List<Department>> getDepByEmpId(@PathVariable int eid)
+	{
+		Employee employee=employeeService.getDepByEmpId(eid); 
+		System.out.println(employee.getDepartments());
+		
+		List<Department> departments=employee.getDepartments();
+		
+		return ResponseEntity.ok(departments);
+		
+		
+	}
+	
 }

@@ -22,14 +22,18 @@ public interface EmployeeServiceI {
 	Employee getByEmpId(int eid) throws UserCustumException;
 
 	List<Employee> findPaginated(int pageNo, int pageSize);
-	
+
 	EmployeeAndDepartmentData findEmployeesAndDep();
-	
-	 public EmployeeAndDepartmentImpl getAndDepartmentData();
-	 
-	 public Optional<EmployeeAndDepartmentData> getAndDepartmentData1();
-	 
-	 public List<Employee> getBySalaryGreaterThen();
-	 
-	 public EmployeeAndDepartmentData getEmployeeAndDepData();
+
+	public EmployeeAndDepartmentImpl getAndDepartmentData();
+
+	public Optional<EmployeeAndDepartmentData> getAndDepartmentData1();
+
+	public List<Employee> getBySalaryGreaterThen();
+
+	public EmployeeAndDepartmentData getEmployeeAndDepData();
+
+	void saveEmpAndDep(EmployeeDTO dto);
+
+	Employee getDepByEmpId(int eid);
 }

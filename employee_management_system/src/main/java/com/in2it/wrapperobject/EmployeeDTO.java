@@ -1,5 +1,7 @@
 package com.in2it.wrapperobject;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -24,6 +26,20 @@ public class EmployeeDTO {
 	String empAddress;
 
 	String empSalary;
+
+	List<DepartmentDTO> depList;
+
+	public EmployeeDTO(int eid, String empName, String empUserName, String empPassword, String empAddress,
+			String empSalary, List<DepartmentDTO> depList) {
+		super();
+		this.eid = eid;
+		this.empName = empName;
+		this.empUserName = empUserName;
+		this.empPassword = empPassword;
+		this.empAddress = empAddress;
+		this.empSalary = empSalary;
+		this.depList = depList;
+	}
 
 	public int getEid() {
 		return eid;
@@ -72,20 +88,20 @@ public class EmployeeDTO {
 	public void setEmpSalary(String empSalary) {
 		this.empSalary = empSalary;
 	}
+	
 
-	public EmployeeDTO(int eid, String empName, String empUserName, String empPassword, String empAddress,
-			String empSalary) {
-		super();
-		this.eid = eid;
-		this.empName = empName;
-		this.empUserName = empUserName;
-		this.empPassword = empPassword;
-		this.empAddress = empAddress;
-		this.empSalary = empSalary;
+	public List<DepartmentDTO> getDepList() {
+		return depList;
+	}
+
+	public void setDepList(List<DepartmentDTO> depList) {
+		this.depList = depList;
 	}
 
 	public EmployeeDTO() {
 		super();
 	}
+
+	 
 
 }

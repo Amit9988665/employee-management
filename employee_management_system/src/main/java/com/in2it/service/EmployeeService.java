@@ -1,5 +1,6 @@
 package com.in2it.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,9 +10,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.in2it.custumexception.UserCustumException;
+import com.in2it.model.Department;
 import com.in2it.model.Employee;
 import com.in2it.repository.EmployeeRepo;
 import com.in2it.repository.EmployeeRepositoryEntityManager;
+import com.in2it.wrapperobject.DepartmentDTO;
 import com.in2it.wrapperobject.EmployeeAndDepartmentData;
 import com.in2it.wrapperobject.EmployeeAndDepartmentImpl;
 import com.in2it.wrapperobject.EmployeeDTO;
@@ -25,18 +28,21 @@ public class EmployeeService implements EmployeeServiceI {
 	@Autowired
 	EmployeeRepositoryEntityManager employeeRepositoryEntityManager;
 
-	/** private BCryptPasswordEncoder bCryptPasswordEncoder; 
-	 * @throws UserCustumException */
+	/**
+	 * private BCryptPasswordEncoder bCryptPasswordEncoder;
+	 * 
+	 * @throws UserCustumException
+	 */
 
 	@Override
 	public void delete(int id) throws UserCustumException {
-		Optional<Employee> employee=employeeRepo.findById(id);
-		if (employee!=null) {
+		Optional<Employee> employee = employeeRepo.findById(id);
+		if (employee != null) {
 			employeeRepo.deleteById(id);
-		}else {
+		} else {
 			throw new UserCustumException("Employee not found");
 		}
-		
+
 	}
 
 	@Override
@@ -76,7 +82,7 @@ public class EmployeeService implements EmployeeServiceI {
 
 	@Override
 	public Employee getByEmpId(int eid) throws UserCustumException {
-		return employeeRepo.findById(eid).orElseThrow(()->new UserCustumException("User not found"));
+		return employeeRepo.findById(eid).orElseThrow(() -> new UserCustumException("User not found"));
 
 	}
 
@@ -112,10 +118,47 @@ public class EmployeeService implements EmployeeServiceI {
 	}
 
 	public List<Employee> getBySalaryGreaterThen() {
-		return employeeRepo.getAllEmpBySalaryGreaterThen();
+		List<Employee> list = employeeRepo.getAllEmpBySalaryGreaterThen();
+		return list;
 	}
 
 	public EmployeeAndDepartmentData getEmployeeAndDepData() {
 		return employeeRepositoryEntityManager.findAllEmpAndDep();
 	}
+
+	@Override
+	public void saveEmpAndDep(EmployeeDTO employeeDTO) {
+		List<Department> departments = new ArrayList<>();
+
+		Employee employee = new Employee();
+		employee.setEid(employeeDTO.getEid());
+		employee.setEmpName(employeeDTO.getEmpName());
+		employee.setEmpAddress(employeeDTO.getEmpAddress());
+
+		employee.setEmpPassword(employeeDTO.getEmpPassword());
+		employee.setEmpUserName(employeeDTO.getEmpUserName());
+		employee.setEmpSalary(employeeDTO.getEmpSalary());
+
+		List<DepartmentDTO> employeeDTOs = employeeDTO.getDepList();
+		employeeDTOs.forEach(e -> {
+			Department department1 = new Department();
+			department1.setDepName(e.getDepName());
+			department1.setDepAddress(e.getDepAddress());
+			department1.setDepEmailId(e.getDepEmailId());
+			department1.setDepPhoneNo(e.getDepPhoneNo());
+			departments.add(department1);
+			employee.setDepartments(departments);
+		});
+
+		System.out.println(employeeRepo.save(employee));
+
+		employeeRepo.save(employee);
+
+	}
+
+	@Override
+	public Employee getDepByEmpId(int eid) {
+		return employeeRepo.getDepByEmpId(eid);
+	}
+
 }

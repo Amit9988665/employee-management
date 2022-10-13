@@ -27,7 +27,7 @@ public class GlobleExceptionHandler {
 		});
 		return miMap;
 	}
-
+	
 	@ExceptionHandler(UserCustumException.class)
 	public ResponseEntity<Map<String, List<String>>> userDifineException(UserCustumException ex) {
 		List<String> errors = Collections.singletonList(ex.getMessage());
