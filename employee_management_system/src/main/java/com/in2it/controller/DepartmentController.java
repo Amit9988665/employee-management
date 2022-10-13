@@ -31,9 +31,10 @@ public class DepartmentController {
 	}
 	
 	@GetMapping("/getalldep")
-	public List<Department> getAllDep()
+	public ResponseEntity<List<Department>> getAllDep()
 	{
-		return departmentServiceImpl.getAllDep();
+	 
+		return ResponseEntity.ok(departmentServiceImpl.getAllDep());
 	}
 	
 	@PostMapping("/saveempanddep")

@@ -39,4 +39,12 @@ public class GlobleExceptionHandler {
 		map.put("Error is ", errors);
 		return map;
 	}
+	
+	@ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)
+	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+	public ResponseEntity<Map<String, List<String>>> methodNotFoundExceptions(org.springframework.web.HttpRequestMethodNotSupportedException ex1){
+		List<String> messMap=Collections.singletonList(ex1.getMessage());
+		 return new ResponseEntity<>(getErrorsMap(messMap), new HttpHeaders(), HttpStatus.METHOD_NOT_ALLOWED);
+		
+	}
 }

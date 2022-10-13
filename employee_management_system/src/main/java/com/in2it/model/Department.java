@@ -8,17 +8,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Department {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int did;
 
 	String depName;
@@ -28,10 +27,13 @@ public class Department {
 	String depEmailId;
 
 	String depPhoneNo;
-
-	@JsonIgnore
+ 
 	@ManyToMany(cascade = CascadeType.ALL,mappedBy="departments")
 	List<Employee> employees;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cid")
+	Company company;
 
 	public Department() {
 
